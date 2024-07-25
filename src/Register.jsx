@@ -48,6 +48,10 @@ function Register() {
     setValidMatch(match);
   }, [pwd, matchPwd]);
 
+  useEffect(() => {
+    setErrMsg("");
+  }, [user, pwd, matchPwd]);
+
   return <div></div>;
 }
 

@@ -1,5 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faTimes,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -50,8 +54,13 @@ function Register() {
 
   return (
     <section>
-      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}{" "}
-      aria-live='assertive'>{errMsg}</p>
+      <p
+        ref={errRef}
+        className={errMsg ? "errmsg" : "offscreen"}
+        aria-live="assertive"
+      >
+        {errMsg}
+      </p>
       <h1>Register</h1>
       <form>
         <label htmlFor="username">username:</label>
@@ -62,17 +71,58 @@ function Register() {
           autoComplete="off"
           onChange={(e) => setUser(e.target.value)}
           required
-          aria-invalid={validName ?'false':'true'}
-          aria-describedby='uidnote'
+          aria-invalid={validName ? "false" : "true"}
+          aria-describedby="uidnote"
           onFocus={() => setUserFocus(true)}
           onBlur={() => setUserFocus(false)}
         />
-        <p id="uidnote" className={userFocus && user && !validName ? 'instructions' : 'offscreen'}>
-            <FontAwesomeIcon icon={faInfoCircle}/>
-            Username must start with a letter and contain only letters, numbers, hyphens,
-            or underscores, and be between 4 and 24 characters long.</p>
+        <p
+          id="uidnote"
+          className={
+            userFocus && user && !validName ? "instructions" : "offscreen"
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+          Username must start with a letter and contain only letters, numbers,
+          hyphens, or underscores, and be between 4 and 24 characters long.
+        </p>
 
-    
+        <label htmlFor="password">
+          Password:
+          <span className={validPwd ? "valid" : "hide"}>
+            <FontAwesomeIcon icon={faCheck} />
+          </span>
+          <span className={validPwd || !pwd ? "hide" : "invalid"}>
+            <FontAwesomeIcon icon={faTimes} />
+          </span>
+        </label>
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          required
+          aria-invalid={validPwd ? "false" : "true"}
+          aria-describedby="pwdnote"
+          onFocus={() => setPwdFocus(true)}
+          onBlur={() => setPwdFocus(false)}
+        />
+        <p
+          id="pwdnote"
+          className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+          8 to 24 characters.
+          <br />
+          Must include uppercase and lowercase letters, a number and a special
+          character.
+          <br />
+          Allowed special characters:{" "}
+          <span aria-label="exclamation mark">!</span>{" "}
+          <span aria-label="at symbol">@</span>{" "}
+          <span aria-label="hashtag">#</span>{" "}
+          <span aria-label="dollar sign">$</span>{" "}
+          <span aria-label="percent">%</span>
+        </p>
       </form>
     </section>
   );

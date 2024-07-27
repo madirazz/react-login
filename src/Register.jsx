@@ -150,6 +150,8 @@ function Register() {
           <FontAwesomeIcon icon={faInfoCircle} />
           Must match the first password input field.
         </p>
+
+        <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
       </form>
     </section>
   );

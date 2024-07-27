@@ -1,10 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import {
-  faCheck,
-  faTimes,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { faFontAwesome } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -52,7 +48,34 @@ function Register() {
     setErrMsg("");
   }, [user, pwd, matchPwd]);
 
-  return <div></div>;
+  return (
+    <section>
+      <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}{" "}
+      aria-live='assertive'>{errMsg}</p>
+      <h1>Register</h1>
+      <form>
+        <label htmlFor="username">username:</label>
+        <input
+          type="text"
+          id="username"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setUser(e.target.value)}
+          required
+          aria-invalid={validName ?'false':'true'}
+          aria-describedby='uidnote'
+          onFocus={() => setUserFocus(true)}
+          onBlur={() => setUserFocus(false)}
+        />
+        <p id="uidnote" className={userFocus && user && !validName ? 'instructions' : 'offscreen'}>
+            <FontAwesomeIcon icon={faInfoCircle}/>
+            Username must start with a letter and contain only letters, numbers, hyphens,
+            or underscores, and be between 4 and 24 characters long.</p>
+
+    
+      </form>
+    </section>
+  );
 }
 
 export default Register;

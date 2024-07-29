@@ -84,13 +84,24 @@ function Register() {
           </p>
           <h1>Register</h1>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">username:</label>
+            <label htmlFor="username">
+              Username:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validName ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validName || !user ? "hide" : "invalid"}
+              />
+            </label>
             <input
               type="text"
               id="username"
               ref={userRef}
               autoComplete="off"
               onChange={(e) => setUser(e.target.value)}
+              value={user}
               required
               aria-invalid={validName ? "false" : "true"}
               aria-describedby="uidnote"
@@ -104,9 +115,11 @@ function Register() {
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              Username must start with a letter and contain only letters,
-              numbers, hyphens, or underscores, and be between 4 and 24
-              characters long.
+              4 to 24 characters.
+              <br />
+              Must begin with a letter.
+              <br />
+              Letters, numbers, underscores, hyphens allowed.
             </p>
 
             <label htmlFor="password">
